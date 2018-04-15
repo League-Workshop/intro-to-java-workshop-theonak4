@@ -1,14 +1,26 @@
 package section3;
 
-import javax.swing.JOptionPane;
+import javax.swing.JOptionPane; 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
 public class StephenHawking {
 	
 	// 1. make a main method and put steps 2, 3 & 4 inside it
+	@SuppressWarnings("unused")
+	public static void main(String[] args) {
+		
+		int i;
+		for(i = 0; i < 100; i++) {
+			String text = JOptionPane.showInputDialog("Enter a sentence:");
+			speak(text);
+			
+		}
+		
+	}
 	
 	// 4. Use a for loop to repeat steps #2 and #3, a lot of times
+	
 	
 	// 2. ask the user for a sentence
 	

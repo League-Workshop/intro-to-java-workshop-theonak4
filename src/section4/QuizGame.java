@@ -1,22 +1,90 @@
 package section4;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
+// Capitals Quiz by Theo Nakfoor
+
+
+
 public class QuizGame {
 	
-	public static void main(String[] args) {
+	public static int score = 0;
+	public static String username;
+	
+	public static void main(String[] args) throws IOException {
 		
-		// 1.  Create a variable to hold the user's score 
+		username = JOptionPane.showInputDialog("Enter a username:");
 		
-		// 2.  Ask the user a question 
+		askQuestion("What is the capital of California?", "Sacramento");
+		askQuestion("What is the capital of Oregon?", "Salem");
+		askQuestion("What is the capital of Alaska?", "Juneau");
 		
-		// 3.  Use an if statement to check if their answer is correct
+		JOptionPane.showMessageDialog(null, "Thanks for playing! Your final score is " + score + "!");
+		saveStats(username, score);
 		
-		// 4.  if the user's answer is correct
+		int lead = JOptionPane.showConfirmDialog(null, "Would you like to see the leaderboard?");
+
+		if(lead == 0) {
+			
+		File file = new File("stats.txt");
+		FileInputStream fis;
 		
-		// -- add one to their score 
+		try {
+			
+			fis = new FileInputStream(file);
+			byte[] data = new byte[(int) file.length()];
+			fis.read(data);
+			fis.close();
+
+			String str = new String(data, "UTF-8");
+			JOptionPane.showMessageDialog(null, str);
+			
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		}
 		
-		// 5.  Create more questions by repeating steps 1, 2, and 3 below. 
+		} else {
+			
+		}
 		
-		// 6.  After all the questions have been asked, print the user's score 
+		
 		
 	}
+	
+	public static void askQuestion(String question, String answer) {
+		
+		String answer1 = JOptionPane.showInputDialog(null, question);
+
+		if(answer1.equals(answer)) {
+			score += 1;
+			JOptionPane.showMessageDialog(null, "Correct! Your score is now " + score);
+		} else {
+			score -= 1;
+			JOptionPane.showMessageDialog(null, "Incorrect. The answer was: " + answer);
+			JOptionPane.showMessageDialog(null, "Your score is now " + score);
+		}
+	}
+	
+	public static void saveStats(String username, int score) {
+		String data = username + ":" + score + "\n";
+		BufferedWriter writer;
+		try {
+			writer = new BufferedWriter(new FileWriter("stats.txt", true));
+			writer.write(data);
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 }
